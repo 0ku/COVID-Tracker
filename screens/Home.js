@@ -22,11 +22,12 @@ axios.request(options).then(function (response) {
 
 
 export default function Home() {
+  console.log(options)
   const [loaded] = useFonts({
     PoppinsBlack: require('../assets/fonts/Poppins-Regular.ttf'),
   });
   return(
-      <ScrollView style = {styles.mainContainer}>
+      <ScrollView contentContainerStyle = {styles.mainContainer}>
           <Text style = {styles.textStandard}>This is a test</Text>
       </ScrollView>
   );
