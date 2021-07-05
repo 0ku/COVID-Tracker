@@ -1,31 +1,33 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useFonts } from "expo-font";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Flashcard1 } from "../components/Flashcards";
+
+//https://rapidapi.com/api-sports/api/covid-193/
 var axios = require("axios").default;
-
 var options = {
-  method: "GET",
-  url: "https://covid-193.p.rapidapi.com/countries",
+  method: 'GET',
+  url: 'https://covid-193.p.rapidapi.com/statistics',
   headers: {
-    "x-rapidapi-key": "b1ec1931a7msh0a647224d9daa39p194b65jsnf72505feddaf",
-    "x-rapidapi-host": "covid-193.p.rapidapi.com",
-  },
-};
-
-axios
-  .request(options)
-  .then(function (response) {
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+    'x-rapidapi-key': 'b1ec1931a7msh0a647224d9daa39p194b65jsnf72505feddaf',
+    'x-rapidapi-host': 'covid-193.p.rapidapi.com'
+  }
+};  
+var countries = [] //array to store countries
+axios.request(options).then(function (response) {
+	console.log(response.data.response[0]);
+  for (var i =0;i<response.data.response.length;i++) {
+    countries.push(response.data.response[i])
+    //[active, new, total, recovered]
+  }
+  console.log(countries.length)
+}).catch(function (error) {
+	console.error(error);
+});
 
 export default function Home() {
-  console.log(options);
   const [loaded] = useFonts({
     PoppinsBlack: require("../assets/fonts/Poppins-Regular.ttf"),
   });
