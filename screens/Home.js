@@ -15,11 +15,11 @@ var options = {
     'x-rapidapi-host': 'covid-193.p.rapidapi.com'
   }
 };  
-var countries = [] //array to store countries
+const [countries, setCountries] = useState([]);
 axios.request(options).then(function (response) {
 	console.log(response.data.response[0]);
   for (var i =0;i<response.data.response.length;i++) {
-    countries.push(response.data.response[i])
+    updateCountries(countries => [...countries, response.data.response[i]])
     //[active, new, total, recovered]
   }
   console.log(countries.length)
