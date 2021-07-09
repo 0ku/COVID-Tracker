@@ -1,36 +1,66 @@
 import { StatusBar } from "expo-status-bar";
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useFonts } from "expo-font";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Flashcard1 } from "../components/Flashcards";
 
 //https://rapidapi.com/api-sports/api/covid-193/
-var axios = require("axios").default;
-var options = {
-  method: 'GET',
-  url: 'https://covid-193.p.rapidapi.com/statistics',
-  headers: {
-    'x-rapidapi-key': 'b1ec1931a7msh0a647224d9daa39p194b65jsnf72505feddaf',
-    'x-rapidapi-host': 'covid-193.p.rapidapi.com'
-  }
-};  
-const [countries, setCountries] = useState([]);
-axios.request(options).then(function (response) {
-	console.log(response.data.response[0]);
-  for (var i =0;i<response.data.response.length;i++) {
-    updateCountries(countries => [...countries, response.data.response[i]])
-    //[active, new, total, recovered]
-  }
-  console.log(countries.length)
-}).catch(function (error) {
-	console.error(error);
-});
 
 export default function Home() {
+  const [countries, setCountries] = useState([]);
+  const [mostActive, setMostActive] = useState([]);
+
+  function findMostActiveCases() {
+    var currentMax = null;
+    var found = [];
+    for (var i = 0; i < 3; i++) {
+      for (var j = 0; j < countries.length; j++) {
+        if (currentMax == null) {
+          currentMax = countries[j];
+        } else if (
+          found.includes(countries[j]) == false &&
+          countries[j].data.response[i].cases.active >
+            currentMax.data.response[i].cases.active
+        ) {
+          currentMax = countries[j];
+        }
+      }
+      found.push(currentMax);
+      currentMax = null;
+    }
+    console.log(found);
+  }
   const [loaded] = useFonts({
     PoppinsBlack: require("../assets/fonts/Poppins-Regular.ttf"),
   });
+  useEffect(() => {
+    var axios = require("axios").default;
+    var options = {
+      method: "GET",
+      url: "https://covid-193.p.rapidapi.com/statistics",
+      headers: {
+        "x-rapidapi-key": "b1ec1931a7msh0a647224d9daa39p194b65jsnf72505feddaf",
+        "x-rapidapi-host": "covid-193.p.rapidapi.com",
+      },
+    };
+    axios
+      .request(options)
+      .then(function (response) {
+        for (var i = 0; i < response.data.response.length; i++) {
+          console.log(response.data.response[i]);
+          countries.push(response.data.response[i])
+          //setCountries(countries=>[...countries,response.data.response[i]]);
+          console.log(countries)
+          //[active, new, total, recovered]
+        }
+        console.log(countries);
+        findMostActiveCases();
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, []);
   return (
     <View style={styles.mainContainer}>
       <View style={styles.flashcardContainer}>
@@ -56,7 +86,7 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   flashcardContainer: {
-    minWidth: '100%',
+    minWidth: "100%",
     padding: 40,
     flex: 1,
     backgroundColor: "#2E2E2E",
