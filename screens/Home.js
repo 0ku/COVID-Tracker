@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { Button, Overlay } from 'react-native-elements';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useFonts } from "expo-font";
@@ -12,6 +13,7 @@ export default function Home() {
 
   function findMostActiveCases(countries) {
     var currentMax = null;
+    var blacklist = ["Africa","Europe","North-America","Asia","South-America"]
     var found = [];
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < countries.length; j++) {
@@ -22,7 +24,7 @@ export default function Home() {
           found.includes(countries[j]) == false &&
           countries[j].cases.active >
             currentMax.cases.active
-            && countries[j].continent != "All" && countries[j].country != "North-America"
+            && countries[j].continent != "All" && blacklist.includes(countries[j].country) != true
         ) {
           currentMax = countries[j];
         }
@@ -30,6 +32,7 @@ export default function Home() {
       found.push(currentMax);
       currentMax = null;
     }
+    setMostActive(found)
     console.log(found);
   }
   const [loaded] = useFonts({
@@ -50,7 +53,6 @@ export default function Home() {
       .then(function (response) {
         let temp = []
         for (var i = 0; i < response.data.response.length; i++) {
-          console.log(response.data.response[i]);
           temp.push(response.data.response[i])
           //setCountries(countries=>[...countries,response.data.response[i]]);
           //[active, new, total, recovered]
