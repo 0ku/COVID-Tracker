@@ -8,20 +8,21 @@ import { Flashcard1 } from "../components/Flashcards";
 //https://rapidapi.com/api-sports/api/covid-193/
 
 export default function Home() {
-  const [countries, setCountries] = useState([]);
   const [mostActive, setMostActive] = useState([]);
 
-  function findMostActiveCases() {
+  function findMostActiveCases(countries) {
     var currentMax = null;
     var found = [];
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < countries.length; j++) {
-        if (currentMax == null) {
+        if (currentMax == null && countries[j].continent != "All" && countries[j].country != "North-America") {
           currentMax = countries[j];
-        } else if (
+        } 
+        else if (
           found.includes(countries[j]) == false &&
-          countries[j].data.response[i].cases.active >
-            currentMax.data.response[i].cases.active
+          countries[j].cases.active >
+            currentMax.cases.active
+            && countries[j].continent != "All" && countries[j].country != "North-America"
         ) {
           currentMax = countries[j];
         }
@@ -47,15 +48,15 @@ export default function Home() {
     axios
       .request(options)
       .then(function (response) {
+        let temp = []
         for (var i = 0; i < response.data.response.length; i++) {
           console.log(response.data.response[i]);
-          countries.push(response.data.response[i])
+          temp.push(response.data.response[i])
           //setCountries(countries=>[...countries,response.data.response[i]]);
-          console.log(countries)
           //[active, new, total, recovered]
         }
-        console.log(countries);
-        findMostActiveCases();
+        console.log(temp);
+        findMostActiveCases(temp);
       })
       .catch(function (error) {
         console.error(error);
