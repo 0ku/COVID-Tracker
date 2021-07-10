@@ -1,5 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, Overlay } from 'react-native-elements';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useFonts } from "expo-font";
@@ -32,8 +31,8 @@ export default function Home() {
       found.push(currentMax);
       currentMax = null;
     }
-    setMostActive(found)
     console.log(found);
+    return found
   }
   const [loaded] = useFonts({
     PoppinsBlack: require("../assets/fonts/Poppins-Regular.ttf"),
@@ -58,7 +57,8 @@ export default function Home() {
           //[active, new, total, recovered]
         }
         console.log(temp);
-        findMostActiveCases(temp);
+        setMostActive(findMostActiveCases(temp));
+        console.log(mostActive)
       })
       .catch(function (error) {
         console.error(error);
@@ -67,7 +67,7 @@ export default function Home() {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.flashcardContainer}>
-        <Flashcard1></Flashcard1>
+        <Flashcard1 items = {mostActive} title = {"Most Active Cases"}></Flashcard1>
         <Flashcard1></Flashcard1>
         <Flashcard1></Flashcard1>
       </View>

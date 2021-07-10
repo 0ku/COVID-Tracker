@@ -6,8 +6,8 @@ import { Button1,LabeledButton1 } from './Buttons';
 export const  Flashcard1 = (props) => {
     return(
         <View style ={styles.flashcard1}>
-          <Text style = {styles.textHeader1}>Hello</Text>
-            <LabeledButton1/>
+          <Text style = {styles.textHeader1}>{props.title}</Text>
+            <LabeledButton1 label = {props.items[0]}/>
             <LabeledButton1/>
             <LabeledButton1/>
         </View>
