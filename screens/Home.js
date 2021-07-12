@@ -31,7 +31,6 @@ export default function Home() {
       found.push(currentMax);
       currentMax = null;
     }
-    console.log(found);
     return found
   }
   const [loaded] = useFonts({
@@ -56,9 +55,7 @@ export default function Home() {
           //setCountries(countries=>[...countries,response.data.response[i]]);
           //[active, new, total, recovered]
         }
-        console.log(temp);
         setMostActive(findMostActiveCases(temp));
-        console.log(mostActive)
       })
       .catch(function (error) {
         console.error(error);

@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Home from "../screens/Home";
 import { useFonts } from 'expo-font';
 import Search from "../screens/Search";
+import { SafeAreaView } from "react-native";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,7 +20,8 @@ export default function createAppContainer() {
             <Tab.Navigator
                 tabBarOptions={{
                     activeTintColor: "white",
-                    style: {backgroundColor: '#2E2E2E'},
+                    style: {backgroundColor: '#2E2E2E',
+                marginTop:25},
                     labelStyle: {fontFamily: 'PoppinsBlack',fontWeight: '100%'}
                 }}    
             >

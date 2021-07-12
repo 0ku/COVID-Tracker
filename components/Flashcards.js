@@ -3,14 +3,26 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Button1,LabeledButton1 } from './Buttons';
-export const  Flashcard1 = (props) => {
-    return(
-        <View style ={styles.flashcard1}>
+
+/*<View style ={styles.flashcard1}>
           <Text style = {styles.textHeader1}>{props.title}</Text>
             <LabeledButton1 label = {props.items[0]}/>
             <LabeledButton1/>
             <LabeledButton1/>
-        </View>
+        </View>*/
+export const Flashcard1 = (props) => {
+  console.log(props.items)
+    return(
+      <View style = {styles.flashcard1}>
+      {props.items && props.items.length >0? 
+      <View>
+      <Text style = {styles.textHeader1}>{props.title}</Text>
+        <LabeledButton1 label = {props.items[0]}/>
+        <LabeledButton1 label = {props.items[1]}/>
+        <LabeledButton1 label = {props.items[2]}/>
+      </View>
+    :<View><Text>hi</Text></View>}
+    </View>
     );
 }
 
@@ -18,7 +30,8 @@ export const  Flashcard1 = (props) => {
 const styles = StyleSheet.create({
     flashcard1: {
       backgroundColor: '#FF5454',
-      width: '70%',
+      minWidth: '80%',
+      maxWidth: '80%',
       height: '32%',
       marginBottom: 20,
       borderRadius: 30,
@@ -31,7 +44,7 @@ const styles = StyleSheet.create({
     },
     textHeader1: {
         marginTop: 20,
-        marginBottom: 15,
+        marginBottom: 5,
         alignSelf: 'center',
         fontFamily: 'PoppinsBlack',
       fontSize: 20,
