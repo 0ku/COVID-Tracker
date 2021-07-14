@@ -4,11 +4,12 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useFonts } from "expo-font";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Flashcard1 } from "../components/Flashcards";
-
+import { InfoOverlay } from "../components/Overlay";
 //https://rapidapi.com/api-sports/api/covid-193/
 
 export default function Home() {
   const [mostActive, setMostActive] = useState([]);
+  const [visible, setVisible] = useState(true);
 
   function findMostActiveCases(countries) {
     var currentMax = null;
@@ -63,6 +64,7 @@ export default function Home() {
   }, []);
   return (
     <View style={styles.mainContainer}>
+      <InfoOverlay visible1={visible}/>
       <View style={styles.flashcardContainer}>
         <Flashcard1 items = {mostActive} title = {"Most Active Cases"}></Flashcard1>
         <Flashcard1></Flashcard1>

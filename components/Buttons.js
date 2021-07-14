@@ -20,7 +20,6 @@ export const Button1 = (props) => {
          </Icon>
      }
      >
-
      </Button>
  );
 }
@@ -29,7 +28,7 @@ export const LabeledButton1 = (props) => {
     return(
         <View style={styles.labeledButtonContainer}>
             <Text style={styles.labelFormat}>{props.label.country}</Text>
-        <TouchableOpacity style = {styles.button1Style}>
+        <TouchableOpacity style = {styles.button1Style} onPress = {()=>props.onPress}>
             <Text style = {styles.buttonText}>More info</Text>
      </TouchableOpacity>
         </View>
