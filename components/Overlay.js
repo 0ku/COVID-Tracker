@@ -7,7 +7,7 @@ import { Flashcard1 } from "../components/Flashcards";//
 import { Overlay, Button } from "react-native-elements";
 
 
-export const InfoOverlay = (props) => {
+export const bob = (props) => {
 const [visible,setVisible] = useState(props.visible1)
   return (
       <View>
@@ -15,8 +15,7 @@ const [visible,setVisible] = useState(props.visible1)
             <Text>Hello</Text>
             <Button
             onPress={()=>setVisible(false)}>
-                
-
+              
             </Button>
         </Overlay>
     </View>

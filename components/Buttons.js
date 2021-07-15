@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
-import { Button } from 'react-native-elements';
+import { Button,Overlay } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Button1 = (props) => { 
@@ -25,10 +25,21 @@ export const Button1 = (props) => {
 }
 
 export const LabeledButton1 = (props) => {
+    const [visible,setVisible] = useState(false)
+    const toggleOverlay = () => {
+        setVisible(!visible);
+      };
     return(
         <View style={styles.labeledButtonContainer}>
+            <Overlay overlayStyle = {styles.overlaySizing1} isVisible={visible} onBackdropPress={()=>toggleOverlay}>
+                <Button containerStyle = {styles.closeButton} icon={<Icon
+                name= "close"
+                size = {20}
+                color="white"/>}
+                onPress = {()=>toggleOverlay()}></Button>
+            </Overlay>
             <Text style={styles.labelFormat}>{props.label.country}</Text>
-        <TouchableOpacity style = {styles.button1Style} onPress = {()=>props.onPress}>
+        <TouchableOpacity style = {styles.button1Style} onPress = {()=>toggleOverlay()}>
             <Text style = {styles.buttonText}>More info</Text>
      </TouchableOpacity>
         </View>
@@ -57,6 +68,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         minWidth: '100%'
-    }
+    },
+    closeButton: {
+        position: 'absolute',
+        top: '1%',
+        left:'2%'
+    },
+    overlaySizing1: {
+        height: '80%',
+        width: '80%'
+    },
 
 });
