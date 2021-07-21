@@ -8,27 +8,63 @@ import { Flashcard1 } from "../components/Flashcards";
 
 export default function Home() {
   const [mostActive, setMostActive] = useState([]);
+  const [mostTotal,setMostTotal] = useState([]);
+  const [leastActive, setLeastActive] = useState([]);
+
+
+
   function findMostActiveCases(countries) {
     var currentMax = null;
+    var currentTotal = null;
+    var currentLeast = null;
     var blacklist = ["Africa","Europe","North-America","Asia","South-America"]
     var found = [];
+    var found2 = [];
+    var found3 = [];
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < countries.length; j++) {
         if (currentMax == null && countries[j].continent != "All" && countries[j].country != "North-America") {
           currentMax = countries[j];
+          currentTotal = countries[j]
+          currentLeast = countries[j]
         } 
-        else if (
+        else {
+        if (
           found.includes(countries[j]) == false &&
           countries[j].cases.active >
             currentMax.cases.active
             && countries[j].continent != "All" && blacklist.includes(countries[j].country) != true
-        ) {
+        )
+         {
           currentMax = countries[j];
+        }
+
+        if (
+          found.includes(countries[j]) == false &&
+          countries[j].cases.total >
+            currentTotal.cases.total
+            && countries[j].continent != "All" && blacklist.includes(countries[j].country) != true
+        )
+         {
+          currentTotal = countries[j];
+        }
+        if (
+          found.includes(countries[j]) == false &&
+          countries[j].cases.active <
+            currentLeast.cases.active
+            && countries[j].continent != "All" && blacklist.includes(countries[j].country) != true
+        )
+         {
+          currentLeast = countries[j];
         }
       }
       found.push(currentMax);
+      found2.push(currentTotal)
+      found3.push(currentLeast)
       currentMax = null;
     }
+    console.log(found2);
+    console.log(found3)
     return found
   }
   const [loaded] = useFonts({
