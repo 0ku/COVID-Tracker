@@ -15,7 +15,6 @@ const Entry = (props) => {
   );
 }
 export const OverlayInfo = (props) => {
-  console.log(props.item)
   return(
     <View style = {styles.mainContainer}>
       <Text style = {styles.header1}>

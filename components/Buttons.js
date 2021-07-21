@@ -26,13 +26,14 @@ export const Button1 = (props) => {
 
 
 export const LabeledButton1 = (props) => {
-    const [visible,setVisible] = useState(false)
+    const [visible, setVisible] = useState(false)
     const toggleOverlay = () => {
         setVisible(!visible);
       };
     return(
         <View style={styles.labeledButtonContainer}>
-            <Overlay>
+            <Overlay
+            visible = {visible}>
                 <Button containerStyle = {styles.closeButton} icon={<Icon
                 name= "close"
                 size = {20}
