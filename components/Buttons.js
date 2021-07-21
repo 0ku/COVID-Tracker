@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
-import { Button,Overlay } from 'react-native-elements';
+import { Button, Overlay } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { OverlayInfo } from "./Overlay";
 export const Button1 = (props) => { 
  return(
      <Button
@@ -24,6 +24,7 @@ export const Button1 = (props) => {
  );
 }
 
+
 export const LabeledButton1 = (props) => {
     const [visible,setVisible] = useState(false)
     const toggleOverlay = () => {
@@ -31,12 +32,13 @@ export const LabeledButton1 = (props) => {
       };
     return(
         <View style={styles.labeledButtonContainer}>
-            <Overlay overlayStyle = {styles.overlaySizing1} isVisible={visible} onBackdropPress={()=>toggleOverlay}>
+            <Overlay>
                 <Button containerStyle = {styles.closeButton} icon={<Icon
                 name= "close"
                 size = {20}
                 color="white"/>}
                 onPress = {()=>toggleOverlay()}></Button>
+                <OverlayInfo item = {props.label}/>
             </Overlay>
             <Text style={styles.labelFormat}>{props.label.country}</Text>
         <TouchableOpacity style = {styles.button1Style} onPress = {()=>toggleOverlay()}>

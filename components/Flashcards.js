@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
-import { Button1,LabeledButton1 } from './Buttons';
+import { Button1, LabeledButton1 } from './Buttons';
 import { InfoOverlay } from './Overlay';
 /*<View style ={styles.flashcard1}>
           <Text style = {styles.textHeader1}>{props.title}</Text>

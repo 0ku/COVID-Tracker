@@ -6,25 +6,46 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { Flashcard1 } from "../components/Flashcards";//    
 import { Overlay, Button } from "react-native-elements";
 
-
-export const bob = (props) => {
-const [visible,setVisible] = useState(props.visible1)
-  return (
+const Entry = (props) => {
+  return(
       <View>
-        <Overlay visible = {visible} overlayStyle = {styles.overlayContainer}>
-            <Text>Hello</Text>
-            <Button
-            onPress={()=>setVisible(false)}>
-              
-            </Button>
-        </Overlay>
-    </View>
+          <Text style = {styles.header2}>{props.header}</Text>
+          <Text style = {styles.text1}>{props.value}</Text>
+      </View>
   );
-};
+}
+export const OverlayInfo = (props) => {
+  console.log(props.item)
+  return(
+    <View style = {styles.mainContainer}>
+      <Text style = {styles.header1}>
+        {props.item.country}
+      </Text>
+      <Entry header = "Population" value = {props.item.population}>  </Entry>
+      <Entry header = "New Cases" value = {props.item.cases.new}> </Entry>
+      <Entry header = "Active Cases" value = {props.item.cases.active}>  </Entry>
+      <Entry header = "Total Cases" value = {props.item.cases.total}>  </Entry>
+      <Entry header = "Recovered" value = {props.item.cases.recovered}></Entry>
+    </View> 
+  );
+}
 
 const styles = StyleSheet.create({
-    overlayContainer: {
-        minWidth: '75%',
-        minHeight: '80%'
-    }
+  mainContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '100%',
+    minHeight:'70%',
+  },
+  header1: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  header2: {
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
+  text1: {
+    padding: 10,
+  }
   });
