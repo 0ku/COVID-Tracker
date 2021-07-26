@@ -28,6 +28,7 @@ export const Button1 = (props) => {
 export const SearchButton = (props) => {
     return (
         <Button
+        buttonStyle = {styles.searchButtonStyle}
         icon = {<Icon
         name = "search"
         size = {20}
@@ -64,6 +65,10 @@ export const LabeledButton1 = (props) => {
 }
 
 const styles = StyleSheet.create({
+    searchButtonStyle: {
+        marginLeft: 10,
+        backgroundColor: 'white'
+    },
     buttonText: {
         alignSelf:'center',
     },

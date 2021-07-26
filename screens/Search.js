@@ -6,7 +6,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { TouchableOpacity } from 'react-native';
 import { SearchButton } from '../components/Buttons';
 import { proc } from 'react-native-reanimated';
-
+import { Flashcard1, Flashcard2 } from '../components/Flashcards';
 export default function Search() {
   const [countries, setCountries] = useState([]);
   const [currentCountry, setCurrentCountry] = useState(null);
@@ -54,6 +54,7 @@ export default function Search() {
           <TextInput  style = {styles.inputBox} placeholder={"Enter a country"} onChangeText = {(value)=>setInput(value)}></TextInput>
           <SearchButton onPress = {()=>processSearch()}/>
         </View>
+        {currentCountry != null ? <Flashcard2 item = {currentCountry}/>:<View/>}
       </View>
   );
 }
