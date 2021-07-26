@@ -10,8 +10,34 @@ export default function Search() {
         <TextInput  style = {styles.inputBox} placeholder={"Enter a country"}></TextInput>
       </View>
   );
-  
 }
+
+
+useEffect(() => {
+  var axios = require("axios").default;
+  var options = {
+    method: "GET",
+    url: "https://covid-193.p.rapidapi.com/statistics",
+    headers: {
+      "x-rapidapi-key": "b1ec1931a7msh0a647224d9daa39p194b65jsnf72505feddaf",
+      "x-rapidapi-host": "covid-193.p.rapidapi.com",
+    },
+  };
+  axios
+    .request(options)
+    .then(function (response) {
+      let temp = []
+      for (var i = 0; i < response.data.response.length; i++) {
+        temp.push(response.data.response[i])
+        //setCountries(countries=>[...countries,response.data.response[i]]);
+        //[active, new, total, recovered]
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}, []);
+
 
 const styles = StyleSheet.create({
   mainContainer: {
