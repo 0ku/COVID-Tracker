@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import { Button, Overlay } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { OverlayInfo } from "./Overlay";
+
 export const Button1 = (props) => { 
  return(
      <Button
@@ -24,6 +25,18 @@ export const Button1 = (props) => {
  );
 }
 
+export const SearchButton = (props) => {
+    return (
+        <Button
+        icon = {<Icon
+        name = "search"
+        size = {20}
+        color = "green"/>}
+        onPress = {() => props.onPress()}
+        >
+        </Button>
+    );
+}
 
 export const LabeledButton1 = (props) => {
     const [visible, setVisible] = useState(false)
