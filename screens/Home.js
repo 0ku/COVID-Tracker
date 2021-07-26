@@ -7,16 +7,67 @@ import { Flashcard1 } from "../components/Flashcards";
 //https://rapidapi.com/api-sports/api/covid-193/
 
 export default function Home() {
+  const [allCountries, setAllCountries] = useState([]);
   const [mostActive, setMostActive] = useState([]);
   const [mostTotal,setMostTotal] = useState([]);
   const [leastActive, setLeastActive] = useState([]);
 
+  function findLeastActiveCases(countries) {
+    var currentMin = null;
+    var blacklist = ["Africa","Europe","North-America","Asia","South-America"]
+    var found = [];
+    for (var i = 0; i < 3; i++) {
+      for (var j = 0; j < countries.length; j++) {
+        if (currentMin == null && countries[j].continent != "All" && countries[j].country != "North-America") {
+          currentMin = countries[j];
+          currentTotal = countries[j]
+          currentLeast = countries[j]
+        } 
+        else if (
+          found.includes(countries[j]) == false &&
+          countries[j].cases.total <
+          currentMin.cases.total
+            && countries[j].continent != "All" && blacklist.includes(countries[j].country) != true
+        )
+         {
+          currentMin = countries[j];
+        }
+      }
+      found.push(currentMin);
+      currentMin = null;
+    }
+    return found
+  }
 
+  function findMostTotalCases(countries) {
+    var currentMax = null;
+    var blacklist = ["Africa","Europe","North-America","Asia","South-America"]
+    var found = [];
+    for (var i = 0; i < 3; i++) {
+      for (var j = 0; j < countries.length; j++) {
+        if (currentMax == null && countries[j].continent != "All" && countries[j].country != "North-America") {
+          currentMax = countries[j];
+          currentTotal = countries[j]
+          currentLeast = countries[j]
+        } 
+        else if (
+          found.includes(countries[j]) == false &&
+          countries[j].cases.total >
+            currentMax.cases.total
+            && countries[j].continent != "All" && blacklist.includes(countries[j].country) != true
+        )
+         {
+          currentMax = countries[j];
+        }
+      }
+      found.push(currentMax);
+      currentMax = null;
+    }
+    return found
+  }
 
   function findMostActiveCases(countries) {
     var currentMax = null;
-    var currentTotal = null;
-    var currentLeast = null;
     var blacklist = ["Africa","Europe","North-America","Asia","South-America"]
     var found = [];
     for (var i = 0; i < 3; i++) {
@@ -64,6 +115,9 @@ export default function Home() {
           //[active, new, total, recovered]
         }
         setMostActive(findMostActiveCases(temp));
+        setMostTotal(findMostTotalCases(temp));
+        setLeastActive(findLeastActiveCases(temp));
+        setAllCountries(temp);
       })
       .catch(function (error) {
         console.error(error);
@@ -73,8 +127,8 @@ export default function Home() {
     <View style={styles.mainContainer}>
       <View style={styles.flashcardContainer}>
         <Flashcard1 items = {mostActive} title = {"Most Active Cases"}></Flashcard1>
-        <Flashcard1></Flashcard1>
-        <Flashcard1></Flashcard1>
+        <Flashcard1 items = {mostTotal} title = {"Most Total Cases"}></Flashcard1>
+        <Flashcard1 items = {leastActive} title = {"Least Active Cases"}></Flashcard1>
       </View>
     </View>
   );

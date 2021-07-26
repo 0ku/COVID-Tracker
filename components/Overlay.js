@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minWidth: '100%',
     minHeight:'70%',
+    bottom: 45,
   },
   header1: {
     fontWeight: 'bold',

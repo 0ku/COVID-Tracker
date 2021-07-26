@@ -33,6 +33,7 @@ export const LabeledButton1 = (props) => {
     return(
         <View style={styles.labeledButtonContainer}>
             <Overlay
+            overlayStyle = {styles.overlaySizing1}
             visible = {visible}>
                 <Button containerStyle = {styles.closeButton} icon={<Icon
                 name= "close"
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         left:'2%'
     },
     overlaySizing1: {
-        height: '80%',
+        height: '60%',
         width: '80%'
     },
 
