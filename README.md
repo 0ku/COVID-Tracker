@@ -1,4 +1,4 @@
-# CovidTG1
+# Covid Tracker
  
  Welcome!
  This project was done to practice working with both React Native and utilizing APIs. The API used for this project can be found here: https://rapidapi.com/api-sports/api/covid-193/
